@@ -20,3 +20,6 @@ export const contractsLoadedSelector = createSelector(
 
 const test = (state) => get(state, "web3.test.nicknames");
 export const testSelector = createSelector(test, (a) => a);
+
+const name = (state) => get(state, "web3.name", "")
+export const nameSelector = createSelector(name, n => n)

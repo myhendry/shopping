@@ -6,6 +6,7 @@ export const WEB3_LOADED = "WEB3_LOADED";
 export const WEB3_ACCOUNT_LOADED = "WEB3_ACCOUNT_LOADED";
 export const TOKEN_LOADED = "TOKEN_LOADED";
 export const PLAY_LOADED = "PLAY_LOADED";
+export const GET_NAME = "GET_NAME"
 export const CHANGE_TEST = "CHANGE_TEST";
 
 export const loadWeb3 = (eth) => {
@@ -49,6 +50,16 @@ export const loadPlay = (web3, networkId) => {
   };
 };
 
+export const getName = () => { 
+  return async (dispatch, getState) => {
+    const name = await getState().web3.play.methods.name().call()
+    dispatch({
+      type: GET_NAME,
+      name
+    })
+  }
+}
+
 export const testDemo = () => {
   return async (dispatch, getState) => {
     console.log(dispatch, getState())
@@ -61,3 +72,5 @@ export const changeTest = () => {
     name: "ali",
   };
 };
+
+

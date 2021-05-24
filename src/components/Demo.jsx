@@ -1,22 +1,26 @@
 import React, { useEffect} from 'react'
 import {connect} from 'react-redux'
 
-import {testDemo} from '../store/actions'
+import {getName} from '../store/actions'
+import {nameSelector} from '../store/selectors'
 
-const Demo = ({ testDemo }) => {
+const Demo = ({ getName, name }) => {
   useEffect(() => {
-    testDemo()
-  }, [testDemo])
+    getName()
+  }, [getName])
 
   return (
     <div>
-      <h1>Demo</h1>
+      <h1>{name}</h1>
     </div>
   )
 }
 
 const mapStateToProps = state => {
-  return {}
+  return {
+    name: nameSelector(state)
+    
+  }
 }
 
-export default connect(mapStateToProps, { testDemo})(Demo)
+export default connect(mapStateToProps, { getName})(Demo)

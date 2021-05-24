@@ -5,6 +5,7 @@ import {
   WEB3_ACCOUNT_LOADED,
   TOKEN_LOADED,
   PLAY_LOADED,
+  GET_NAME,
   CHANGE_TEST,
 } from "./actions";
 
@@ -13,6 +14,7 @@ const INITIAL_STATE = {
   account: "",
   token: null,
   play: null,
+  name: "",
   test: {
     name: "Testing",
     nicknames: ["a", "b", "c"],
@@ -45,6 +47,11 @@ export const web3 = (state = INITIAL_STATE, action) => {
         ...state,
         play: action.play,
       };
+    case GET_NAME:
+      return {
+        ...state,
+        name: action.name
+      }
     case CHANGE_TEST:
       return {
         ...state,
