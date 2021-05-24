@@ -5,19 +5,14 @@ import {
   loadWeb3,
   loadAccount,
   loadPlay,
-  changeTest,
 } from "../store/actions";
-import { accountSelector, testSelector, contractsLoadedSelector } from "../store/selectors";
-import Demo from './Demo'
+import {contractsLoadedSelector} from '../store/selectors'
+import Content from './Content'
 
 const App = ({
-  account,
   loadWeb3,
   loadAccount,
   loadPlay,
-  changeTest,
-  test1,
-  test2,
   contractsLoaded
 }) => {
   useEffect(() => {
@@ -51,12 +46,7 @@ const App = ({
     <div>
       {
         contractsLoaded ? (
-          <div>
-            <h5>{account}</h5>
-            <Demo/>
-            <h6>{test2.name}</h6>
-            <button onClick={changeTest}>Change</button>
-          </div> 
+          <Content />
         ) : <h1>Loading ...</h1>
       }
     </div>
@@ -65,10 +55,7 @@ const App = ({
 
 const mapStateToProps = (state) => {
   return {
-    account: accountSelector(state),
     contractsLoaded: contractsLoadedSelector(state),
-    test2: state.web3.test,
-    test1: testSelector(state),
   };
 };
 
@@ -76,5 +63,4 @@ export default connect(mapStateToProps, {
   loadWeb3,
   loadAccount,
   loadPlay,
-  changeTest,
 })(App);

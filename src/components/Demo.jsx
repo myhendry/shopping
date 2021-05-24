@@ -14,11 +14,8 @@ const MyForm = ({ setName }) => (
          name: Yup.string().required("Name is required").min(2, "Minimum 2 characters needed")
        })}
        onSubmit={(values, { setSubmitting }) => {
-        //  setTimeout(() => {
-        //    alert(JSON.stringify(values, null, 2));
-        //    setSubmitting(false);
-        //  }, 400);
-        setName(values.name)
+          setName(values.name)
+          setSubmitting(false)
        }}
      >
        {({ isSubmitting }) => (
