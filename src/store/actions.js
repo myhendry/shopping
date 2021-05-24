@@ -7,6 +7,7 @@ export const WEB3_ACCOUNT_LOADED = "WEB3_ACCOUNT_LOADED";
 export const TOKEN_LOADED = "TOKEN_LOADED";
 export const PLAY_LOADED = "PLAY_LOADED";
 export const GET_NAME = "GET_NAME"
+export const SET_NAME = "SET_NAME"
 export const CHANGE_TEST = "CHANGE_TEST";
 
 export const loadWeb3 = (eth) => {
@@ -57,6 +58,23 @@ export const getName = () => {
       type: GET_NAME,
       name
     })
+  }
+}
+
+export const setName = (name) => {
+  return async (dispatch, getState) => {
+   try {
+    const {play, account } = getState().web3
+    await play.methods.setName(name).send({
+      from: account
+    })
+    dispatch({
+      type: SET_NAME,
+      name
+    })
+   } catch (error) {
+     window.alert("Failed to Update Transaction")
+   }
   }
 }
 

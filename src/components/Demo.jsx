@@ -1,10 +1,41 @@
 import React, { useEffect} from 'react'
 import {connect} from 'react-redux'
+import { Formik, Form, Field, ErrorMessage } from 'formik'
+import * as Yup from 'yup';
 
-import {getName} from '../store/actions'
+import {getName, setName} from '../store/actions'
 import {nameSelector} from '../store/selectors'
 
-const Demo = ({ getName, name }) => {
+const MyForm = ({ setName }) => (
+  <div>
+     <Formik
+       initialValues={{ name: '' }}
+       validationSchema={Yup.object({
+         name: Yup.string().required("Name is required").min(2, "Minimum 2 characters needed")
+       })}
+       onSubmit={(values, { setSubmitting }) => {
+        //  setTimeout(() => {
+        //    alert(JSON.stringify(values, null, 2));
+        //    setSubmitting(false);
+        //  }, 400);
+        setName(values.name)
+       }}
+     >
+       {({ isSubmitting }) => (
+         <Form>
+           <Field type="name" name="name" placeholder="Name" />
+           <ErrorMessage name="name" component="div" />
+           <button type="submit" disabled={isSubmitting}>
+             Submit
+           </button>
+         </Form>
+       )}
+     </Formik>
+   </div>
+
+)
+
+const Demo = ({ getName, setName, name }) => {
   useEffect(() => {
     getName()
   }, [getName])
@@ -12,6 +43,7 @@ const Demo = ({ getName, name }) => {
   return (
     <div>
       <h1>{name}</h1>
+      <MyForm setName={setName}/>
     </div>
   )
 }
@@ -19,8 +51,8 @@ const Demo = ({ getName, name }) => {
 const mapStateToProps = state => {
   return {
     name: nameSelector(state)
-    
+
   }
 }
 
-export default connect(mapStateToProps, { getName})(Demo)
+export default connect(mapStateToProps, { getName, setName})(Demo)

@@ -7,6 +7,7 @@ import {
   PLAY_LOADED,
   GET_NAME,
   CHANGE_TEST,
+  SET_NAME,
 } from "./actions";
 
 const INITIAL_STATE = {
@@ -48,6 +49,11 @@ export const web3 = (state = INITIAL_STATE, action) => {
         play: action.play,
       };
     case GET_NAME:
+      return {
+        ...state,
+        name: action.name
+      }
+    case SET_NAME:
       return {
         ...state,
         name: action.name
