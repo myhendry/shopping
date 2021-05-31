@@ -7,6 +7,7 @@
 
 ---
 
+```javascript
 Node 10.19.0
 
 truffle init
@@ -24,6 +25,7 @@ token.name()
 token.symbol()
 token.decimals()
 token.decimals().then(v => { console.log(v.toNumber())})
+```
 
 ---
 
