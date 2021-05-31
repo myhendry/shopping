@@ -3,19 +3,15 @@ import { combineReducers } from "redux";
 import {
   WEB3_LOADED,
   WEB3_ACCOUNT_LOADED,
-  TOKEN_LOADED,
   PLAY_LOADED,
   GET_NAME,
   CHANGE_TEST,
   SET_NAME,
 } from "./actions";
 
-const INITIAL_STATE = {
+const INITIAL_STATE_WEB3 = {
   connection: null,
   account: "",
-  token: null,
-  play: null,
-  name: "",
   test: {
     name: "Testing",
     nicknames: ["a", "b", "c"],
@@ -26,7 +22,7 @@ const INITIAL_STATE = {
   },
 };
 
-export const web3 = (state = INITIAL_STATE, action) => {
+export const web3 = (state = INITIAL_STATE_WEB3, action) => {
   switch (action.type) {
     case WEB3_LOADED:
       return {
@@ -38,26 +34,6 @@ export const web3 = (state = INITIAL_STATE, action) => {
         ...state,
         account: action.account,
       };
-    case TOKEN_LOADED:
-      return {
-        ...state,
-        token: action.token,
-      };
-    case PLAY_LOADED:
-      return {
-        ...state,
-        play: action.play,
-      };
-    case GET_NAME:
-      return {
-        ...state,
-        name: action.name
-      }
-    case SET_NAME:
-      return {
-        ...state,
-        name: action.name
-      }
     case CHANGE_TEST:
       return {
         ...state,
@@ -76,8 +52,40 @@ export const web3 = (state = INITIAL_STATE, action) => {
   }
 };
 
+const INITIAL_STATE_PLAY = {
+  loaded: false,
+  play: null, 
+  name: "",
+}
+
+export const play = (state=INITIAL_STATE_PLAY, action) => {
+  switch(action.type) {
+    case PLAY_LOADED:
+      return {
+        ...state,
+        loaded: true,
+        play: action.play,
+      };
+      case GET_NAME:
+        return {
+          ...state,
+          name: action.name
+        }
+      case SET_NAME:
+        return {
+          ...state,
+          name: action.name
+        }
+    default: 
+      return {
+      ...state
+    }
+  }
+}
+
 const rootReducer = combineReducers({
   web3,
+  play
 });
 
 export default rootReducer;
