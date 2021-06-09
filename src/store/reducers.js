@@ -7,6 +7,7 @@ import {
   GET_NAME,
   CHANGE_TEST,
   SET_NAME,
+  LOAD_ALL_DATA,
 } from "./actions";
 
 const INITIAL_STATE_WEB3 = {
@@ -54,38 +55,51 @@ export const web3 = (state = INITIAL_STATE_WEB3, action) => {
 
 const INITIAL_STATE_PLAY = {
   loaded: false,
-  play: null, 
+  play: null,
+  allTransferred: {
+    loaded: false,
+    data: [],
+  },
   name: "",
-}
+};
 
-export const play = (state=INITIAL_STATE_PLAY, action) => {
-  switch(action.type) {
+export const play = (state = INITIAL_STATE_PLAY, action) => {
+  switch (action.type) {
     case PLAY_LOADED:
       return {
         ...state,
         loaded: true,
         play: action.play,
       };
-      case GET_NAME:
-        return {
-          ...state,
-          name: action.name
-        }
-      case SET_NAME:
-        return {
-          ...state,
-          name: action.name
-        }
-    default: 
+    case LOAD_ALL_DATA:
       return {
-      ...state
-    }
+        ...state,
+        allTransferred: {
+          ...state.allTransferred,
+          loaded: true,
+          data: action.allTransferred,
+        },
+      };
+    case GET_NAME:
+      return {
+        ...state,
+        name: action.name,
+      };
+    case SET_NAME:
+      return {
+        ...state,
+        name: action.name,
+      };
+    default:
+      return {
+        ...state,
+      };
   }
-}
+};
 
 const rootReducer = combineReducers({
   web3,
-  play
+  play,
 });
 
 export default rootReducer;
